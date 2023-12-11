@@ -10,51 +10,28 @@ public class App {
     {
         try {
 
-            Scanner scanner = new Scanner(new File("src/main/resources/Advent.txt"));
-            ArrayList<String> list = new ArrayList<>();
-            while(scanner.hasNext()) {
-                list.add(scanner.nextLine());
-            }
+            ArrayList<String> list = getStrings();
             StringBuilder sb = new StringBuilder();
 
             System.out.println(" ");
 
             int sum = 0;
-            for (String line : list){
-
-                char[] toChar = line.toCharArray();
-
-//                Arrays.sort(toChar);
-                System.out.println(toChar);
-                for (char c: toChar){
-                    if (Character.isDigit(c)){
-                          sb.append(c);
-                    }
-                }
-                 if (sb.length()>1) {
-                     System.out.println("The digits in this string are: " + "\n" +sb);
-                     int numA = Integer.parseInt(sb.substring(0,1))*10;
-                     int numB = Integer.parseInt(sb.substring(sb.length()-1,sb.length()));
-                     System.out.println(numA + " + " + numB + " = " + (numA+numB) + "\n");
-                     sum += (numA+numB);
-                     sb.setLength(0);
-                }else if(sb.length()>0){
-                     System.out.println("The digits in this string are: " + "\n" +sb);
-                     int temp = Integer.parseInt(sb.substring(0,1));
-                     int numA = temp*11;
-                     sb.setLength(0);
-                     System.out.println(temp + " * 11 = "+numA + "\n");
-                    sum += numA;
-
-                }
-                System.out.println("The Resulting Integer is: " + sum);
-
-            }
-
+            sum = GetSum.getSum(list, sb, sum);
+            System.out.println("The Resulting Integer is: " + sum);
         } catch (FileNotFoundException | NumberFormatException e) {
             System.out.println(e.getMessage());
         }
 
 
     }
+
+    private static ArrayList<String> getStrings() throws FileNotFoundException {
+        Scanner scanner = new Scanner(new File("src/main/resources/Advent.txt"));
+        ArrayList<String> list = new ArrayList<>();
+        while(scanner.hasNext()) {
+            list.add(scanner.nextLine());
+        }
+        return list;
+    }
+
 }
